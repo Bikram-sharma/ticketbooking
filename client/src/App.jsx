@@ -42,7 +42,7 @@ function App() {
       return ;
     } 
     try {
-      const response = await fetch('http://localhost:9000/tryapi',{
+      const response = await fetch('https://ticketbooking-duw8.onrender.com',{
         method:"POST",
         headers:{
           "Content-Type": "application/json",
