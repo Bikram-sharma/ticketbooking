@@ -3,7 +3,7 @@ import toast, {Toaster} from "react-hot-toast";
 import {useNavigate} from 'react-router-dom';
 import { ticketIdgenerater } from "./helper/ticketIdgenerater";
 import validator from "validator";
-
+import { ROUTE_CONSTANTS } from "./route-constants";
 
 function App() {
 
@@ -42,14 +42,15 @@ function App() {
       return ;
     } 
     try {
-      const response = await fetch('https://ticketbooking-duw8.onrender.com',{
+      debugger;
+      const url = process.env.BASE_URL;
+      const response = await fetch(url + ROUTE_CONSTANTS.REGISTER,{
         method:"POST",
         headers:{
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user)
       })
-      
 
       const data = await response.json()
     
