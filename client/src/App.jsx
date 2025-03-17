@@ -111,7 +111,7 @@ const handeler = (e)=>{
     }}
   />
 
-     {loading ? <span className="absolute text-2xl font-bold h-screen w-screen grid items-center justify-center bg-white bg-opacity-50"><span className="font-black">Loading.....</span></span> : ''}
+     {loading ? <span className="absolute text-2xl font-bold h-screen w-screen grid items-center justify-center bg-black bg-opacity-50"><span className="font-black">Loading.....</span></span> : ''}
 
       <div className='text-2xl w-full md:w-1/2 md:h-full h-96 flex items-center px-10 flex-col'>
        

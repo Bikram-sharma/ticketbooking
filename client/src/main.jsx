@@ -10,9 +10,8 @@ createRoot(document.getElementById('root')).render(
   <Router>
     <Routes>
       <Route path='/' element = {<App/> }/>
-      <Route path='./ticket/:ticketId' element = {<Ticket/>}/>
+      <Route path='/ticket/:ticketId' element = {<Ticket/>}/>
     </Routes>
-   
   </Router>
   
 )
