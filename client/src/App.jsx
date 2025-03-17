@@ -42,9 +42,9 @@ function App() {
       return ;
     } 
     try {
-      debugger;
-      const url = process.env.BASE_URL;
-      const response = await fetch(url + ROUTE_CONSTANTS.REGISTER,{
+    
+      const url = import.meta.env.VITE_BASE_URL;
+      const response = await fetch(url+ROUTE_CONSTANTS.REGISTER,{
         method:"POST",
         headers:{
           "Content-Type": "application/json",
