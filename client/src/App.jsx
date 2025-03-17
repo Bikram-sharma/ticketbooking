@@ -171,7 +171,7 @@ const handeler = (e)=>{
       <div className='text-2xl w-full md:w-1/2 lg:w-1/2  h-full bg-gray-500 flex justify-center'>
       <span className="absolute mx-5 top-20 text-5xl md:text-6xl font-bold font-mono mix-blend-screen p-5 rounded-xl bg-gradient-to-r from-yellow-100 via-red-500 to-yellow-600 ">It's Show Time!</span>
       
-      <img src="/pexels-vishnurnair-1105666.jpg" alt="banner" className="w-cover h-cover"/>
+      <img src="pexels-vishnurnair-1105666.jpg" alt="banner" className="w-cover h-cover"/>
       </div>
 
     </div>
