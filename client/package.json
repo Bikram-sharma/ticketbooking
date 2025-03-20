@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "react-env --env env -vite preview"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@fontsource/sevillana": "^5.1.0",

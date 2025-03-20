@@ -1,12 +1,13 @@
 import React from 'react'
 import {useNavigate, useLocation} from 'react-router-dom'
 import { useRef } from 'react';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+
 
 
 export default function Ticket() {
 
+
+  
 const ticketRef = useRef();
 const navigate = useNavigate();
 const location = useLocation();
@@ -17,6 +18,8 @@ const home = ()=>{
 }
 
 const downloadPDF = async () => {
+  const { default: jsPDF } = await import("jspdf");
+  const { default: html2canvas } = await import("html2canvas");
  
   const ignore = document.getElementsByTagName('button');
    
@@ -24,9 +27,14 @@ const downloadPDF = async () => {
     element.style.display = 'none';
   }
 
+  if (!ticketRef.current) {
+    console.error("Error: ticketRef is null");
+    return;
+  }
+
   const element = ticketRef.current;
   // Capture the parent container (ticket and surrounding space) as a canvas
-  const canvas = await html2canvas(element, {scale: 1,});
+  const canvas = await html2canvas(element, {scale: 2,});
   const imgData = canvas.toDataURL('image/png');
 
 
