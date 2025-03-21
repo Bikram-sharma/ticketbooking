@@ -6,7 +6,7 @@
 
 
 body {
-    background-image:url('thebanner.jpg');
+    background-image:url('./assets/thebanner.jpg');
     background-size:cover;
     background-repeat:no-repeat;
     height:100vh;
