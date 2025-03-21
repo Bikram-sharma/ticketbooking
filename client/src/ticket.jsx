@@ -61,17 +61,17 @@ const downloadPDF = async () => {
 
 
   return (
-    <div className='flex justify-center box-border w-screen md:w-a4 lg:w-a4 h-screen ' ref={ticketRef}>
-    <div className=' grid justify-center grid-rows-4 w-fit h-fit box-border gap-4' >
+    <div className='grid place-items-start box-border md:w-a4 lg:w-a4 h-[90vh] bg-white ' ref={ticketRef}>
+    <div className=' grid place-items-start grid-rows-4 box-border gap-4' >
       
 
-        <span className=' text-4xl italic font-sevillana h-full p-5'>Symphony Under the Stars</span>
-        <div className='p-2 font-mono'>
+        <span className=' text-3xl italic font-sevillana h-full p-5 grid place-items-center'>Symphony Under the Stars</span>
+        <div className='px-10 font-mono'>
           <span>Ticket ID :{user.ticketId}</span><br />
           <span>Name : {user.name}</span><br />
           <span>Email: {user.email}</span>
         </div>
-        <div className='p-2'>
+        <div className='px-10'>
           <span>Date : {new Date().toDateString()}</span><br />
           <span>Time : {new Date().toLocaleTimeString([],{hour:'2-digit', minute:'2-digit'})}</span><br />
           <span>Venue : Grand Events Venue</span>
@@ -81,11 +81,11 @@ const downloadPDF = async () => {
         <div>
         <button
         onClick={downloadPDF}
-        className='bg-orange-500 px-5 rounded-full'
+        className='bg-orange-500 mx-10 px-5 rounded-full'
       >
         Download as PDF
       </button><br />
-      <button className='bg-green-500 px-5 rounded-full my-10' onClick={home}>Home</button>
+      <button className='bg-green-500 mx-10 px-5 rounded-full my-10' onClick={home}>Home</button>
 
         </div>
         
