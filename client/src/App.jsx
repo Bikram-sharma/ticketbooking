@@ -4,52 +4,39 @@ import {useNavigate} from 'react-router-dom';
 import { ticketIdgenerater } from "./helper/ticketIdgenerater";
 import validator from "validator";
 import { ROUTE_CONSTANTS } from "./route-constants";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 
 function App() {
 
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
-  const [user, setUser] = useState({
-    fullName:'',
-    email:'',
-    phoneNumber:'',
-    dob:'',
-    gender:'',
-    ticketId:'',
-  })
-  const [validForm, setValidForm] = useState(false)
-  const formValidation = Object.values(user).some(value => !value)
- 
   
 
 
-  const fetchData = async() => {
+  const fetchData = async(formData) => {
 
+    const userData = Object.fromEntries(formData.entries());
+    userData.ticketId = ticketIdgenerater();
 
-    const validEmail = validator.isEmail(user.email);
-    const validNumber = validator.isNumeric(user.phoneNumber) 
+    const validEmail = validator.isEmail(userData.email);
+    const validNumber = validator.isNumeric(userData.phoneNumber) 
  
-    if (!validForm) {
-
-      toast.error('Some fields are missing!');
-      setLoading(false)
-      return;
-  }
 
     if(!validEmail || !validNumber){ 
        validEmail ? toast.error('invlid phone number'): toast.error('invlid email');
       setLoading(false)
       return ;
     } 
+
     try {
-    
       const url = import.meta.env.VITE_BASE_URL;
       const response = await fetch(url+ROUTE_CONSTANTS.REGISTER,{
         method:"POST",
         headers:{
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(userData)
       })
 
       const data = await response.json()
@@ -59,36 +46,24 @@ function App() {
 
       }
       
-  
-     
-      response.ok && toast.success(data.message);
-      setLoading(false);
-      navigate(`/ticket/${data.ticketId}`, {state:data})
+     toast.success(data.message);
+     setTimeout(()=>navigate(`/ticket/${data.ticketId}`, {state:data}),3000)
+    
     } catch (error) {
-      // toast.error(data.message)
       toast.error(error.message)
+  
+    }finally{
       setLoading(false)
     }
      
   };
 
 
-useEffect(()=>{
-  setUser({...user, ticketId:ticketIdgenerater()})
-  
-},[]);
-
-useEffect(()=>{
-  setValidForm(!formValidation)
-},[formValidation])
-
-
-  
-
-const handeler = (e)=>{
-  setLoading(true)
+const onSubmit = (e)=>{
   e.preventDefault();
-  fetchData()
+  setLoading(true)
+  const formData = new FormData(e.target)
+  fetchData(formData)
   
 }
 
@@ -101,47 +76,41 @@ const handeler = (e)=>{
   return (
     <div className='h-[100vh] bg-gradient-to-r from-black via-black/85 to-transparent'>
 
-    <Toaster
-    position="top-center"
-    toastOptions={{
-      // Define default options
-      duration: 5000,
-      
+    <Toaster position="top-center" toastOptions={{duration: 5000,}}/>
 
-    }}
-  />
-
-     {loading ? <span className="absolute text-2xl font-bold h-screen w-screen grid items-center justify-center bg-black bg-opacity-50"><span className="text-white">Fetching your ticket...</span></span> : ''}
+     {loading ? <span className="absolute text-xl font-bold h-screen w-screen grid items-center justify-center bg-black bg-opacity-80">
+               <span className="text-white place-items-center">
+                <ScaleLoader color={'white'}/>Fetching your ticket...</span></span> : ''}
 
       <div className='text-white grid grid-cols-2 grid-rows-8 h-[100vh] p-10 place-items-center'>
        
       <div className="row-span-2 row-start-1 w-[100%] h-[100%] grid place-items-center text-[50px]">Get Your Ticket Now!</div>
 
-      <form action="" className="col-start-1 row-span-5 row-start-3 grid grid-cols-2 grid-rows-4 gap-4 p-10 ">
+      <form action="" onSubmit={onSubmit} className="col-start-1 row-span-5 row-start-3 grid grid-cols-2 grid-rows-4 gap-4 p-10 ">
         <div className="col-span-2" >
          <label htmlFor="name" className="text-base md:text-xl">Full Name *</label>
-        <input type="text" onChange={(e)=> setUser({...user, fullName:e.target.value.toString()})} className="p-2 w-full rounded-xl text-base border bg-transparent" placeholder="Full Name"/>
+        <input type="text" name='fullName' className="p-2 w-full rounded-xl text-base border bg-transparent" placeholder="Full Name" required/>
         </div>
 
         <div className="">
          <label htmlFor="Email" className="text-base md:text-xl">Email *</label>
-        <input type="email" onChange={(e)=> setUser({...user, email:e.target.value})} className="p-2 w-full rounded-xl text-base border bg-transparent" placeholder="example@gmail.com"/>
+        <input type="email" name='email' className="p-2 w-full rounded-xl text-base border bg-transparent" placeholder="example@gmail.com" required/>
         </div>
 
         <div className="">
          <label htmlFor="phoneNumber" className="text-base md:text-xl">Phone Number *</label>
-        <input type="text" onChange={(e)=> setUser({...user, phoneNumber:e.target.value})} className="p-2 w-full rounded-xl text-base border bg-transparent" placeholder="Phone Number"/>
+        <input type="text" name='phoneNumber' className="p-2 w-full rounded-xl text-base border bg-transparent" placeholder="Phone Number" required/>
         </div>
 
         <div className="">
          <label htmlFor="country" className="text-base md:text-xl">Date of Birth *</label>
-        <input type="date" onChange={(e)=> setUser({...user, dob:e.target.value})} className="p-2 w-full rounded-xl text-base border text-white bg-transparent"/>
+        <input type="date" name='dob' className="p-2 w-full rounded-xl text-base border text-white bg-transparent" required/>
         </div>
 
         <div className="">
          <label htmlFor="gender" className="text-base md:text-xl">Gender</label>
-        <select defaultValue={'default'} onChange={(e)=> setUser({...user, gender:e.target.value})} name="gander" id="gender" className="w-full rounded-xl p-3 text-base border  bg-transparent">
-          <option value="default" disabled >Select...</option>
+        <select name='gender' defaultValue="" className="w-full rounded-xl p-3 text-base border  bg-transparent">
+          <option value="" disabled>Select...</option>
           <option value="male">Male</option>
           <option value="male">Female</option>
           <option value="male">Other</option>
@@ -151,7 +120,7 @@ const handeler = (e)=>{
         </div>
 
         <div className="col-span-2">
-        <button className={`w-full bg-green-500 hover:bg-green-600 p-2 rounded-xl mt-5 font-mono ${validForm ? 'opacity-1' : 'opacity-50'}`} onClick={handeler} type="submit">Submit</button>
+        <button className='w-full bg-green-500 hover:bg-green-600 p-2 rounded-xl mt-5 font-mono' type="submit">Submit</button>
         </div>
       
       </form>
