@@ -74,7 +74,7 @@ const onSubmit = (e)=>{
 
 
   return (
-    <div className='h-[100vh] bg-gradient-to-r from-black via-black/85 to-transparent'>
+    <div className='h-[100vh] w-[100vw] sm:bg-gradient-to-r from-black via-black/85 to-transparent'>
 
     <Toaster position="top-center" toastOptions={{duration: 5000,}}/>
 
@@ -82,12 +82,12 @@ const onSubmit = (e)=>{
                <span className="text-white place-items-center">
                 <ScaleLoader color={'white'}/>Fetching your ticket...</span></span> : ''}
 
-      <div className='text-white grid grid-cols-2 grid-rows-8 h-[100vh] p-10 place-items-center'>
+      <div className='text-white grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-8 h-[100vh] p-0 sm:p-10 place-items-center bg-black/80 sm:bg-transparent'>
        
-      <div className="row-span-2 row-start-1 w-[100%] h-[100%] grid place-items-center text-[50px]">Get Your Ticket Now!</div>
+      <div className="row-span-2 row-start-1 w-[100%] h-[100%] grid place-items-center text-4xl sm:text-[50px]">Get Your Ticket Now!</div>
 
-      <form action="" onSubmit={onSubmit} className="col-start-1 row-span-5 row-start-3 grid grid-cols-2 grid-rows-4 gap-4 p-10 ">
-        <div className="col-span-2" >
+      <form action="" onSubmit={onSubmit} className="col-start-1 row-start-3 row-span-5 grid grid-cols-1 sm:grid-cols-2 grid-rows-6  sm:grid-rows-4 gap-2 sm:p-10 ">
+        <div className="sm:col-span-2" >
          <label htmlFor="name" className="text-base md:text-xl">Full Name *</label>
         <input type="text" name='fullName' className="p-2 w-full rounded-xl text-base border bg-transparent" placeholder="Full Name" required/>
         </div>
@@ -119,17 +119,17 @@ const onSubmit = (e)=>{
         </select>
         </div>
 
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
         <button className='w-full bg-green-500 hover:bg-green-600 p-2 rounded-xl mt-5 font-mono' type="submit">Submit</button>
         </div>
       
       </form>
       
-      <div className='row-span-2 row-start-1 col-start-2 place-items-center h-[100%] w-[100%] grid place-items-center'>
+      <div className='hidden sm:grid lg:grid row-span-2 row-start-1 col-start-2 place-items-center h-[100%] w-[100%] place-items-center'>
       <span className="banner_text text-[105px]">It's Show Time!</span>
       </div>
 
-      <div className="p-2 text-justify row-start-4 row-span-3 col-start-2 text-white">
+      <div className="hidden sm:grid p-2 text-justify row-start-4 row-span-3 col-start-2 text-white">
       <span className="about_show text-2xl">Experience the Magic of Live Entertainment with "Symphony Under the Stars" – a captivating evening of orchestral music under the open sky.
             This enchanting event will take place at the breathtaking Riverside Amphitheater, located in downtown Cityville,
             offering a perfect blend of nature and culture. Join us on Saturday, December 9, 2024, at 7:00 PM,
